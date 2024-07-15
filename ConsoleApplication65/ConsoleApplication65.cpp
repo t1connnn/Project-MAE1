@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "exprtk.hpp"
-
+using namespace std;
 double derivative(exprtk::expression<double>& expr, double& x, exprtk::symbol_table<double>& symbol_table) {
     double h = 1e-7;
     x = x + h;
@@ -13,11 +13,11 @@ double derivative(exprtk::expression<double>& expr, double& x, exprtk::symbol_ta
 }
 
 int main() {
-    std::string expression;
+    string expression;
     double x0;
-
-    std::cout << "Nhap bieu thuc ham so: ";
-    std::getline(std::cin, expression);
+    // chi nhap ham f(x) 
+    cout << "Nhap bieu thuc ham so: ";
+    getline(std::cin, expression);
 
     exprtk::symbol_table<double> symbol_table;
     double x;
@@ -28,22 +28,22 @@ int main() {
 
     exprtk::parser<double> parser;
     if (!parser.compile(expression, expr)) {
-        std::cerr << "Error: " << parser.error() << std::endl;
+        std::cerr << "Error: " << parser.error() << endl;
         return 1;
     }
 
-    std::cout << "Nh?p ti?p ?i?m x0: ";
-    std::cin >> x0;
+    cout << "Nhap tiep diem x0: ";
+    cin >> x0;
     x = x0; 
 
     double y0 = expr.value();
     double f_prime = derivative(expr, x, symbol_table);
 
-    std::cout << "Phuong trinh tiep tuyen tai diem (" << x0 << ", " << y0 << "): y = "
-        << f_prime << " * (x - " << x0 << ") + " << y0 << std::endl;
+    cout << "Phuong trinh tiep tuyen tai diem (" << x0 << ", " << y0 << "): y = "
+        << f_prime << " * (x - " << x0 << ") + " << y0 << endl;
 
-    std::cout << "Phuong trinh phap tuyen tai diem (" << x0 << ", " << y0 << "): y = "
-        << -1 / f_prime << " * (x - " << x0 << ") + " << y0 << std::endl;
+    cout << "Phuong trinh phap tuyen tai diem (" << x0 << ", " << y0 << "): y = "
+        << -1 / f_prime << " * (x - " << x0 << ") + " << y0 << endl;
 
     return 0;
 }
